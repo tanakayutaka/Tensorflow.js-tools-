@@ -1,0 +1,107 @@
+<HTML>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    </head>
+    <body>
+        <div id="main_part">
+            Neuralnet Capability Check on Javascript based Tensorflow<br />
+            <form name="InputData">
+                <input name="myuniti" placeholder=16 style="left: 350px; position: relative; width: 50px;" type="number" value=16 /> #OfNeurons/layerニューロン数/層<br />
+                <input name="myepoci" placeholder="500" style="left: 350px; position: relative; width: 50px;" type="number" value="500" /> #ofEpoc教育繰り返し回数<br />
+                <input name="myactivation1i" placeholder="tanh" style="left: 350px; position: relative; width: 50px;" type="text" value="tanh" /> InputLyrActivFunc入力層活性化関数<br />
+                <input name="myactivation2i" placeholder="linear" style="left: 350px; position: relative; width: 50px;" type="text" value="linear" /> HidnLyrActivFunc中間層活性化関数<br />
+                <input name="myhiddenlayeri" placeholder="4" style="left: 350px; position: relative; width: 50px;" type="number" value="4" /> #ofHiddenLayer中間層の数<br />
+                <input name="cmdCalc" onclick="AI_Start()" style="left: 50px; position: relative; width: 360px;" type="button" value="START TEACHING BELOW FUNCTION" /><br /> 
+                <input name="y1" placeholder="30" style="left: 350px; position: relative; width: 50px;" type="number" value="30" /> Y when X = 1, X＝1の場合のYの値<br />
+                <input name="y2" placeholder="10" style="left: 350px; position: relative; width: 50px;" type="number" value="10" /> Y when X = 2, X＝2の場合のYの値<br />
+                <input name="y3" placeholder="5" style="left: 350px; position: relative; width: 50px;" type="number" value="5" /> Y when X = 3, X＝3の場合のYの値<br />
+                <input name="y4" placeholder="1" style="left: 350px; position: relative; width: 50px;" type="number" value="1" /> Y when X = 4, X＝4の場合のYの値<br />
+                <input name="y5" placeholder="3" style="left: 350px; position: relative; width: 50px;" type="number" value="3" /> Y when X = 5, X＝5の場合のYの値<br />
+                <input name="y6" placeholder="5" style="left: 350px; position: relative; width: 50px;" type="number" value="5" /> Y when X = 6, X＝6の場合のYの値<br />
+                <input name="y7" placeholder="7" style="left: 350px; position: relative; width: 50px;" type="number" value="7" /> Y when X = 7, X＝7の場合のYの値<br />
+                <input name="y8" placeholder="9" style="left: 350px; position: relative; width: 50px;" type="number" value="9" /> Y when X = 8, X＝8の場合のYの値<br />
+                <input name="y9" placeholder="20" style="left: 350px; position: relative; width: 50px;" type="number" value="20" /> Y when X = 9, X＝9の場合のYの値<br />
+                <input name="y10" placeholder="50" style="left: 350px; position: relative; width: 50px;" type="number" value="50" /> Y when X = 10, X＝10の場合のYの値<br />
+            </form>
+            <canvas id="myChart" width="100" height="100"></canvas>
+        </div>
+    </body>
+    <script>
+        function AI_Start() { 
+            var myunit = document.InputData.myuniti.value - 0;
+            var myepoc = document.InputData.myepoci.value - 0; 
+            var myactivation1 = document.InputData.myactivation1i.value;
+            var myactivation2 = document.InputData.myactivation2i.value;
+            var myhiddenlayer = document.InputData.myhiddenlayeri.value -0;
+            var xs = []; var ys = []; var aiplot = [];
+
+            console.log(myunit);
+            console.log(myepoc);
+            console.log(myactivation1);
+            console.log(myactivation2);
+            console.log(myhiddenlayer);
+
+
+            // Define a model for linear regression.
+                const model = tf.sequential();
+                model.add(tf.layers.dense({units: myunit, activation: myactivation1, inputShape: [1]}));
+                for ( var i = 1 ; i< myhiddenlayer ; i++ ) {
+                    model.add(tf.layers.dense({units: myunit, activation: myactivation2}));
+                }
+                model.add(tf.layers.dense({units: 1}));
+
+                model.compile({loss: 'meanSquaredError', optimizer: 'adam'});
+
+                // Generate some synthetic data for training.
+                var xs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                const xst = tf.tensor(xs);
+                xst.print();
+
+                y1 = document.InputData.y1.value-0
+                y2 = document.InputData.y2.value-0
+                y3 = document.InputData.y3.value-0
+                y4 = document.InputData.y4.value-0
+                y5 = document.InputData.y5.value-0
+                y6 = document.InputData.y6.value-0
+                y7 = document.InputData.y7.value-0
+                y8 = document.InputData.y8.value-0
+                y9 = document.InputData.y9.value-0
+                y10 = document.InputData.y10.value-0
+
+                var ys = [y1, y2, y3, y4, y5, y6, y7, y8, y9, y10];
+                const yst = tf.tensor(ys);
+                yst.print();
+
+                // Train the model using the data.
+                model.fit(xst, yst, {epochs: myepoc}).then(() => {
+                    var aiout = model.predict(xst);
+                    aiout.print();
+                    var aiplot = aiout.dataSync();
+                    console.log(xs);
+                    console.log(ys);
+                    console.log(aiplot);
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                                type: 'line',
+                                options: {scales:{yAxes: [{ticks: {beginAtZero: true}}]}},
+                                data: {
+                                    labels: xs,
+                                    datasets: [
+                                        {
+                                            label: 'Teaching Data',
+                                            data: ys,
+                                            borderWidth: 1,
+                                        },{
+                                            label: 'Learned AI',
+                                            data: aiplot,
+                                            borderWidth: 1,
+                                            borderColor: '#FF0000',
+                                            backgroundColor: 'rgba(1,1,1,0)'
+                                    },]
+                                },
+                        });
+                });
+        }
+    </script>
+</HTML>
