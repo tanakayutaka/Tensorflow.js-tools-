@@ -12,3 +12,7 @@ File Name : index - FINAL - yutaka version - 20191027 - FUNC INTERPORATE BLOG  w
 Link : https://randomwalkjapan.blogspot.com/2019/10/aiai-as-interpolation-machine.html
 
 
+2. Air conditioning application with plotly
+
+File Name : index - air conditioner demo program with 3d plot -  ploty
+Link : https://randomwalkjapan.blogspot.com/2019/11/aiexperiment-temperature-control-by-ai.html
