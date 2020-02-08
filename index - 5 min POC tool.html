@@ -1,0 +1,264 @@
+<HTML>
+        <head>
+            <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
+            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        </head>
+        <body>
+            <div id="main_part">
+                Simple AI POC(Proof Of Concept) Tool<br />
+                Decide control level to achieve target result level<br /><br />
+                <form name="InputData">
+                    <input name="myuniti" placeholder=32 style="left: 350px; position: relative; width: 50px;" type="number" value=32 /> #OfNeurons/layerニューロン数/層<br />
+                    <input name="myepoci" placeholder="100" style="left: 350px; position: relative; width: 50px;" type="number" value="100" /> #ofEpoc教育繰り返し回数<br />
+
+                    <input name="myactivation1i" placeholder="tanh" style="left: 350px; position: relative; width: 50px;" type="text" value="tanh" /> InputLyrActivFunc入力層活性化関数<br />
+                    <input name="myactivation2i" placeholder="linear" style="left: 350px; position: relative; width: 50px;" type="text" value="linear" /> HidnLyrActivFunc中間層活性化関数<br />
+                    <input name="myhiddenlayeri" placeholder="8" style="left: 350px; position: relative; width: 50px;" type="number" value="8" /> #ofHiddenLayer中間層の数<br /><br /> 
+
+                    データーセット番号&nbsp;data&nbsp;set&nbsp;number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /><input name="datnum1" readonly="readonly" placeholder="1" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="1" />  
+                    &nbsp;<input name="datnum2" readonly="readonly" placeholder="2" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="2" />  
+                    &nbsp;<input name="datnum3" readonly="readonly" placeholder="3" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="3" />  
+                    &nbsp;<input name="datnum4" readonly="readonly" placeholder="4" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="4" />  
+                    &nbsp;<input name="datnum5" readonly="readonly" placeholder="5" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="5" />  
+                    &nbsp;<input name="datnum6" readonly="readonly" placeholder="6" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="6" />  
+                    &nbsp;<input name="datnum7" readonly="readonly" placeholder="7" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="7" />  
+                    &nbsp;<input name="datnum8" readonly="readonly" placeholder="8" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="8" />  
+                    &nbsp;<input name="datnum9" readonly="readonly" placeholder="9" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="9" />  <br />
+
+
+                    x. 観測値Observation&nbsp;&nbsp;&nbsp;Value&nbsp;&nbsp;&nbsp;&nbsp;<br /><input name="outemp1" placeholder="25" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="25" />  
+                    &nbsp;<input name="outemp2" placeholder="30" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="30" />  
+                    &nbsp;<input name="outemp3" placeholder="35" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="35" />  
+                    &nbsp;<input name="outemp4" placeholder="25" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="25" />  
+                    &nbsp;<input name="outemp5" placeholder="30" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="30" />  
+                    &nbsp;<input name="outemp6" placeholder="35" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="35" />  
+                    &nbsp;<input name="outemp7" placeholder="25" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="25" />  
+                    &nbsp;<input name="outemp8" placeholder="30" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="30" />  
+                    &nbsp;<input name="outemp9" placeholder="35" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="35" />  <br />
+
+                    z. 制御値Control&nbsp;Level&nbsp;Value&nbsp;(+/-)<br /><input name="power1" placeholder="1" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="-1" />  
+                    &nbsp;<input name="power2" placeholder="-1" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="-1" />  
+                    &nbsp;<input name="power3" placeholder="-1" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="-1" />  
+                    &nbsp;<input name="power4" placeholder="-2" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="-2" />  
+                    &nbsp;<input name="power5" placeholder="-2" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="-2" />  
+                    &nbsp;<input name="power6" placeholder="-2" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="-2" />  
+                    &nbsp;<input name="power7" placeholder="-3" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="-3" />  
+                    &nbsp;<input name="power8" placeholder="-3" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="-3" />  
+                    &nbsp;<input name="power9" placeholder="5" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="5" />   <br />
+                    
+                    y. 結果Final&nbsp;Result&nbsp;Value<br /><input name="intemp1" placeholder="23" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="23" /> 
+                    &nbsp;<input name="intemp2" placeholder="28" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="28" />  
+                    &nbsp;<input name="intemp3" placeholder="34" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="34" />  
+                    &nbsp;<input name="intemp4" placeholder="21" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="21" />  
+                    &nbsp;<input name="intemp5" placeholder="27" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="27" />  
+                    &nbsp;<input name="intemp6" placeholder="32" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="32" />  
+                    &nbsp;<input name="intemp7" placeholder="19" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="19" />  
+                    &nbsp;<input name="intemp8" placeholder="25" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="25" />  
+                    &nbsp;<input name="intemp9" placeholder="15" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="15" />  <br /> <br /> 
+
+                    
+                    <input name="cmdCalc" onclick="AI_Start()" style="background-color: lightblue; left: 50px; position: relative; width: 360px;" type="button" value="START TEACHING POC DATA SET" /><br /> 
+
+
+                </form>
+                <canvas id="myChart" width="100" height="100"></canvas>
+            </div>
+        </body>
+        <script> 
+            const model = tf.sequential();
+            function AI_Start() { 
+                var myunit = document.InputData.myuniti.value - 0;
+                var myepoc = document.InputData.myepoci.value - 0; 
+                var myactivation1 = document.InputData.myactivation1i.value;
+                var myactivation2 = document.InputData.myactivation2i.value;
+                var myhiddenlayer = document.InputData.myhiddenlayeri.value -0;
+                var xs = []; var ys = []; var aiplot = [];
+             
+                console.log(myunit);
+                console.log(myepoc);
+                console.log(myactivation1);
+                console.log(myactivation2);
+                console.log(myhiddenlayer);
+                
+                // Define a model for linear regression.
+                    //const model = tf.sequential();
+                    model.add(tf.layers.dense({units: myunit, activation: myactivation1, inputShape: [2]}));
+                    for ( var i = 1 ; i< myhiddenlayer ; i++ ) {
+                        model.add(tf.layers.dense({units: myunit, activation: myactivation2}));
+                    };
+                    model.add(tf.layers.dense({units: 1}));
+    
+                    model.compile({loss: 'meanSquaredError', optimizer: 'adam'});
+    
+                    // Generate some synthetic data for training.
+                    var xs = [[document.InputData.outemp1.value-0, document.InputData.intemp1.value-0], 
+                              [document.InputData.outemp2.value-0, document.InputData.intemp2.value-0], 
+                              [document.InputData.outemp3.value-0, document.InputData.intemp3.value-0], 
+                              [document.InputData.outemp4.value-0, document.InputData.intemp4.value-0], 
+                              [document.InputData.outemp5.value-0, document.InputData.intemp5.value-0], 
+                              [document.InputData.outemp6.value-0, document.InputData.intemp6.value-0], 
+                              [document.InputData.outemp7.value-0, document.InputData.intemp7.value-0], 
+                              [document.InputData.outemp8.value-0, document.InputData.intemp8.value-0], 
+                              [document.InputData.outemp9.value-0, document.InputData.intemp9.value-0]];
+                    const xst = tf.tensor(xs);
+                    xst.print();
+    
+                    y1 = document.InputData.power1.value-0;
+                    y2 = document.InputData.power2.value-0;
+                    y3 = document.InputData.power3.value-0;
+                    y4 = document.InputData.power4.value-0;
+                    y5 = document.InputData.power5.value-0;
+                    y6 = document.InputData.power6.value-0;
+                    y7 = document.InputData.power7.value-0;
+                    y8 = document.InputData.power8.value-0;
+                    y9 = document.InputData.power9.value-0;
+    
+                    var ys = [y1, y2, y3, y4, y5, y6, y7, y8, y9];
+                    const yst = tf.tensor(ys);
+                    yst.print();
+                    var xsout = [document.InputData.outemp1.value-0,  
+                              document.InputData.outemp2.value-0, 
+                              document.InputData.outemp3.value-0, 
+                              document.InputData.outemp4.value-0, 
+                              document.InputData.outemp5.value-0, 
+                              document.InputData.outemp6.value-0, 
+                              document.InputData.outemp7.value-0, 
+                              document.InputData.outemp8.value-0, 
+                              document.InputData.outemp9.value-0];
+
+                    var xsint = [document.InputData.intemp1.value-0, 
+                              document.InputData.intemp2.value-0, 
+                              document.InputData.intemp3.value-0, 
+                              document.InputData.intemp4.value-0, 
+                              document.InputData.intemp5.value-0, 
+                              document.InputData.intemp6.value-0, 
+                              document.InputData.intemp7.value-0, 
+                              document.InputData.intemp8.value-0, 
+                              document.InputData.intemp9.value-0];
+
+                    var z_data = []; // tensor pack to feed to predict
+                    var x_data = []; // vector to feed to plotly
+                    var y_data = []; // vector to feed to plotly
+                    //for(i=0;i<21;i++){
+                    //    x_data.push(40-i);
+                    //    y_data.push(30-i);
+                    //    for(j=0;j<21;j++){
+                    //        z_data.push(i+20, j+10);
+                    //  };
+                    //};
+                    xmax = Math.max.apply(null,xsout) ; xmin = Math.min.apply(null,xsout)
+                    ymax = Math.max.apply(null,xsint) ; ymin = Math.min.apply(null,xsint)
+                    console.log("x_bound",xmax,xmin)
+                    console.log("y_bound",ymax,ymin)
+                    xinc=(xmax-xmin)/20
+                    yinc=(ymax-ymin)/20
+                    console.log("xinc,yinc",xinc,yinc)
+                    for(i=0;i<21;i++){
+                        x_data.push(xmax-xinc*i);
+                        y_data.push(ymax-yinc*i);
+                        for(j=0;j<21;j++){
+                           z_data.push(i*xinc+xmin, j*yinc+ymin);
+                      };
+                    };
+
+                    console.log("z_data",z_data); // preparing input tensor for prediction
+                    const tt_data = tf.tensor(z_data);
+                    console.log("tt_data",tt_data);
+                    console.log("tt_data.print();")
+                    tt_data.print();
+                    const t_data = tt_data.reshape([441,2]);
+                    console.log("t_data.print();")
+                    t_data.print();
+    
+                    // Train the model using the data.
+                    const surface = { name: 'show.fitCallbacks', tab: 'Training' };
+                    model.fit(xst, yst, {epochs: myepoc, callbacks: tfvis.show.fitCallbacks(surface, ['loss', 'acc'])}).then(() => {
+                        var aiout = model.predict(xst);
+                        console.log("aiout.print()")
+                        aiout.print();
+                        var aiplot = aiout.dataSync();
+                        console.log("xs",xs);
+                        console.log("ys",ys);
+                        console.log("aiplot",aiplot);
+                        console.log(acgetctrl(10, 30));
+                        console.log(acgetctrl(20, 30));
+                        console.log(acgetctrl(25, 30));
+                        console.log(acgetctrl(30, 30));
+                        console.log(acgetctrl(35, 30));
+                        console.log(acgetctrl(40, 30));
+                        var plotout = model.predict(t_data);  // predict surface to plotly
+                        console.log("plotout")
+                        plotout.print();
+                        var z_datax = plotout.dataSync();
+                        console.log("z_datax",z_datax);
+                        z_datap = [];
+                        for(i=0;i<21;i++){  // Converting predicted tensor to plotly data
+                            z_datap.push(z_datax.slice(21*i,21*i+21));
+                            console.log("z_datax.slice(21*i,21*i+21)",z_datax.slice(21*i,21*i+21));
+                        }
+                        console.log("z_datap",z_datap);
+                        console.log("plotout",plotout);
+                        console.log("x_data",x_data);
+                        console.log("y_data",y_data);
+                        console.log(z_datap);
+                        console.log("x_data.length",x_data.length);
+                        console.log("y_data.length",y_data.length);
+                        console.log(z_datap.length);
+                        console.log(typeof x_data.length);
+                        console.log(typeof y_data.length);
+                        console.log(typeof z_datap.length);
+
+                        var data = [{
+                          x: x_data,
+                          y: y_data,  
+                          z: z_datap,
+                          type: 'surface',
+                          contours: {
+                            z: {
+                              show:true,
+                              usecolormap: true,
+                              highlightcolor:"#42f462",
+                              project:{z: true}
+                            }
+                          }
+                        }];
+
+                        console.log(data);
+
+                        var layout = {
+                          title: 'AI Simple POC Tool',
+                          scene: {camera: {eye: {x: 1.87, y: 0.88, z: -0.64}},
+                                    xaxis:{title: 'x:Observation Value'},
+                                    yaxis:{title: 'y:Final Result Value'},
+                                    zaxis:{title: 'z:Control Level Value (+/-)'},},
+                          autosize: false,
+                          width: 500,
+                          height: 500,
+                          margin: {
+                            l: 25,
+                            r: 10,
+                            b: 25,
+                            t: 50,
+                          }
+                        };
+
+                        Plotly.newPlot('main_part', data, layout);
+
+                    });
+            };
+
+            function acgetctrl(outtemp, intemp) {
+                    console.log("now in acgetctr1",outtemp,intemp,"---------------------");
+                    var css = [[outtemp, intemp]];
+                    const cst = tf.tensor(css);
+                    var cstout = model.predict(cst);
+                    cstout.print();
+                    const aiplot = cstout.dataSync();
+                    console.log(aiplot);
+                    console.log(typeof aiplot);
+                    console.log(aiplot[0]);
+                    return aiplot[0];
+            };
+        </script>
+    </HTML>
