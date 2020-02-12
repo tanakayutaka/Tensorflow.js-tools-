@@ -3,6 +3,7 @@
             <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
             <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+            <script src="https://unpkg.com/simple-statistics@7.0.8/dist/simple-statistics.min.js"></script>
         </head>
         <body>
             <div id="main_part">
@@ -16,7 +17,8 @@
                     <input name="myactivation2i" placeholder="linear" style="left: 350px; position: relative; width: 50px;" type="text" value="linear" /> HidnLyrActivFunc中間層活性化関数<br />
                     <input name="myhiddenlayeri" placeholder="8" style="left: 350px; position: relative; width: 50px;" type="number" value="8" /> #ofHiddenLayer中間層の数<br /><br /> 
 
-                    データーセット番号&nbsp;data&nbsp;set&nbsp;number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /><input name="datnum1" readonly="readonly" placeholder="1" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="1" />  
+                    データーセット番号&nbsp;data&nbsp;set&nbsp;number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <br /><input name="datnum1" readonly="readonly" placeholder="1" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="1" />  
                     &nbsp;<input name="datnum2" readonly="readonly" placeholder="2" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="2" />  
                     &nbsp;<input name="datnum3" readonly="readonly" placeholder="3" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="3" />  
                     &nbsp;<input name="datnum4" readonly="readonly" placeholder="4" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="4" />  
@@ -27,35 +29,38 @@
                     &nbsp;<input name="datnum9" readonly="readonly" placeholder="9" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="9" />  <br />
 
 
-                    x. 観測値Observation&nbsp;&nbsp;&nbsp;Value&nbsp;&nbsp;&nbsp;&nbsp;<br /><input name="outemp1" placeholder="25" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="25" />  
-                    &nbsp;<input name="outemp2" placeholder="30" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="30" />  
-                    &nbsp;<input name="outemp3" placeholder="35" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="35" />  
-                    &nbsp;<input name="outemp4" placeholder="25" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="25" />  
-                    &nbsp;<input name="outemp5" placeholder="30" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="30" />  
-                    &nbsp;<input name="outemp6" placeholder="35" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="35" />  
-                    &nbsp;<input name="outemp7" placeholder="25" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="25" />  
-                    &nbsp;<input name="outemp8" placeholder="30" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="30" />  
-                    &nbsp;<input name="outemp9" placeholder="35" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="35" />  <br />
+                    x. 観測値Observation&nbsp;&nbsp;&nbsp;Value&nbsp;&nbsp;&nbsp;&nbsp;
+                    <br /><input name="outemp1" placeholder="12" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="12" />  
+                    &nbsp;<input name="outemp2" placeholder="12" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="12" />  
+                    &nbsp;<input name="outemp3" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="10" />  
+                    &nbsp;<input name="outemp4" placeholder="8" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="8" />  
+                    &nbsp;<input name="outemp5" placeholder="8" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="8" />  
+                    &nbsp;<input name="outemp6" placeholder="8" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="8" />  
+                    &nbsp;<input name="outemp7" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="10" />  
+                    &nbsp;<input name="outemp8" placeholder="12" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="12" />  
+                    &nbsp;<input name="outemp9" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="10" />  <br />
 
-                    z. 制御値Control&nbsp;Level&nbsp;Value&nbsp;(+/-)<br /><input name="power1" placeholder="1" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="-1" />  
-                    &nbsp;<input name="power2" placeholder="-1" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="-1" />  
-                    &nbsp;<input name="power3" placeholder="-1" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="-1" />  
-                    &nbsp;<input name="power4" placeholder="-2" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="-2" />  
-                    &nbsp;<input name="power5" placeholder="-2" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="-2" />  
-                    &nbsp;<input name="power6" placeholder="-2" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="-2" />  
-                    &nbsp;<input name="power7" placeholder="-3" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="-3" />  
-                    &nbsp;<input name="power8" placeholder="-3" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="-3" />  
-                    &nbsp;<input name="power9" placeholder="5" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="5" />   <br />
+                    z. 制御値Control&nbsp;Level&nbsp;Value&nbsp;(+/-)
+                    <br /><input name="power1" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="10" />  
+                    &nbsp;<input name="power2" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="10" />  
+                    &nbsp;<input name="power3" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="10" />  
+                    &nbsp;<input name="power4" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="10" />  
+                    &nbsp;<input name="power5" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="10" />  
+                    &nbsp;<input name="power6" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="10" />  
+                    &nbsp;<input name="power7" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="10" />  
+                    &nbsp;<input name="power8" placeholder="10" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="10" />  
+                    &nbsp;<input name="power9" placeholder="-10" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="-10" />   <br />
                     
-                    y. 結果Final&nbsp;Result&nbsp;Value<br /><input name="intemp1" placeholder="23" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="23" /> 
-                    &nbsp;<input name="intemp2" placeholder="28" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="28" />  
-                    &nbsp;<input name="intemp3" placeholder="34" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="34" />  
-                    &nbsp;<input name="intemp4" placeholder="21" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="21" />  
-                    &nbsp;<input name="intemp5" placeholder="27" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="27" />  
-                    &nbsp;<input name="intemp6" placeholder="32" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="32" />  
-                    &nbsp;<input name="intemp7" placeholder="19" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="19" />  
-                    &nbsp;<input name="intemp8" placeholder="25" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="25" />  
-                    &nbsp;<input name="intemp9" placeholder="15" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="15" />  <br /> <br /> 
+                    y. 結果Final&nbsp;Result&nbsp;Value
+                    <br /><input name="intemp1" placeholder="5" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="5" /> 
+                    &nbsp;<input name="intemp2" placeholder="6" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="6" />  
+                    &nbsp;<input name="intemp3" placeholder="6" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="6" />  
+                    &nbsp;<input name="intemp4" placeholder="6" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF" type="number" value="6" />  
+                    &nbsp;<input name="intemp5" placeholder="5" style="left: 10px; position: relative; width: 40px; background-color:#CC9999"" type="number" value="5" />  
+                    &nbsp;<input name="intemp6" placeholder="4" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF" type="number" value="4" />  
+                    &nbsp;<input name="intemp7" placeholder="4" style="left: 10px; position: relative; width: 40px; background-color:#CCFFFF"" type="number" value="4" />  
+                    &nbsp;<input name="intemp8" placeholder="4" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="4" />  
+                    &nbsp;<input name="intemp9" placeholder="5" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="5" />  <br /> <br /> 
 
                     
                     <input name="cmdCalc" onclick="AI_Start()" style="background-color: lightblue; left: 50px; position: relative; width: 360px;" type="button" value="START TEACHING POC DATA SET" /><br /> 
@@ -91,7 +96,7 @@
     
                     model.compile({loss: 'meanSquaredError', optimizer: 'adam'});
     
-                    // Generate some synthetic data for training.
+                    // Set input data in original space.
                     var xs = [[document.InputData.outemp1.value-0, document.InputData.intemp1.value-0], 
                               [document.InputData.outemp2.value-0, document.InputData.intemp2.value-0], 
                               [document.InputData.outemp3.value-0, document.InputData.intemp3.value-0], 
@@ -103,7 +108,35 @@
                               [document.InputData.outemp9.value-0, document.InputData.intemp9.value-0]];
                     const xst = tf.tensor(xs);
                     xst.print();
-    
+                    const outorg=xst.slice([0,0],[9,1])
+                    console.log("outorg,intorg")
+                    outorg.print();
+
+                    const intorg=xst.slice([0,1],[9,1])
+                    intorg.print();
+                    var outave = ss.mean(outorg.dataSync());
+                    var outsig = ss.standardDeviation(outorg.dataSync());
+                    console.log("outave,outsig",outave,outsig)
+
+                    var intave = ss.mean(intorg.dataSync());
+                    var intsig = ss.standardDeviation(intorg.dataSync());
+                    console.log("intave,intsig",intave,intsig)
+
+                    console.log("normalized outorg")
+                    normTensor(outorg,outave,outsig).print()
+
+                    console.log("normalized intorg")
+                    normTensor(intorg,intave,intsig).print()
+
+                    console.log("normalize & inverting intorg")
+                    invTensor(normTensor(intorg,intave,intsig),intave,intsig).print()
+                    
+                    console.log("############################################################")
+                    console.log("Testing JoinPOC") // This goes to tf.fit
+                    JoinPOC(normTensor(outorg,outave,outsig),normTensor(intorg,intave,intsig)).print()
+
+                    console.log("############################################################")
+
                     y1 = document.InputData.power1.value-0;
                     y2 = document.InputData.power2.value-0;
                     y3 = document.InputData.power3.value-0;
@@ -113,10 +146,18 @@
                     y7 = document.InputData.power7.value-0;
                     y8 = document.InputData.power8.value-0;
                     y9 = document.InputData.power9.value-0;
-    
+
                     var ys = [y1, y2, y3, y4, y5, y6, y7, y8, y9];
                     const yst = tf.tensor(ys);
+                    console.log("tensor yst")
                     yst.print();
+                    var pwrave = ss.mean(yst.dataSync());
+                    var pwrsig = ss.standardDeviation(yst.dataSync());
+                    console.log("pwrave,pwrsig",pwrave,pwrsig)
+                    console.log("normalized yst(pwr) for fit to educate") // this goes to tf.fit
+                    normTensor(yst,pwrave,pwrsig).print()
+                    console.log("############################################################")
+
                     var xsout = [document.InputData.outemp1.value-0,  
                               document.InputData.outemp2.value-0, 
                               document.InputData.outemp3.value-0, 
@@ -170,11 +211,30 @@
                     const t_data = tt_data.reshape([441,2]);
                     console.log("t_data.print();")
                     t_data.print();
-    
+                    // 
+                    const nt_data = tf.stack([normTensor(t_data.slice([0,0],[441,1]),outave,outsig),normTensor(t_data.slice([0,1],[441,1]),intave,intsig)],1).reshape([441,2])
+                    console.log("nt_data.print();")
+                    nt_data.print()
+
+                    console.log("normTensor(outorg,outave,outsig)")
+                    normTensor(outorg,outave,outsig).print()
+
+                    console.log("normTensor(intorg,intave,intsig)")
+                    normTensor(intorg,intave,intsig).print()
+                    
+                    console.log("JoinPOC(normTensor(outorg,outave,outsig),normTensor(intorg,intave,intsig)),normTensor(yst,pwrave,pwrsig)")
+                    JoinPOC(normTensor(outorg,outave,outsig),normTensor(intorg,intave,intsig)).print()
+                    normTensor(yst,pwrave,pwrsig).print()
+
                     // Train the model using the data.
                     const surface = { name: 'show.fitCallbacks', tab: 'Training' };
-                    model.fit(xst, yst, {epochs: myepoc, callbacks: tfvis.show.fitCallbacks(surface, ['loss', 'acc'])}).then(() => {
-                        var aiout = model.predict(xst);
+                    //model.fit(xst, 
+                    //          yst, 
+                    //          {epochs: myepoc, callbacks: tfvis.show.fitCallbacks(surface, ['loss', 'acc'])}).then(() => {
+                    model.fit(JoinPOC(normTensor(outorg,outave,outsig),normTensor(intorg,intave,intsig)), 
+                              normTensor(yst,pwrave,pwrsig), 
+                              {epochs: myepoc, callbacks: tfvis.show.fitCallbacks(surface, ['loss', 'acc'])}).then(() => {
+                        var aiout = invTensor(model.predict(xst),pwrave,pwrsig);
                         console.log("aiout.print()")
                         aiout.print();
                         var aiplot = aiout.dataSync();
@@ -187,15 +247,15 @@
                         console.log(acgetctrl(30, 30));
                         console.log(acgetctrl(35, 30));
                         console.log(acgetctrl(40, 30));
-                        var plotout = model.predict(t_data);  // predict surface to plotly
-                        console.log("plotout")
+                        var plotout = invTensor(model.predict(nt_data),pwrave,pwrsig);  // predict surface to plotly
+                        console.log("plotout!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                         plotout.print();
                         var z_datax = plotout.dataSync();
                         console.log("z_datax",z_datax);
                         z_datap = [];
                         for(i=0;i<21;i++){  // Converting predicted tensor to plotly data
                             z_datap.push(z_datax.slice(21*i,21*i+21));
-                            console.log("z_datax.slice(21*i,21*i+21)",z_datax.slice(21*i,21*i+21));
+                            // console.log("z_datax.slice(21*i,21*i+21)",z_datax.slice(21*i,21*i+21));
                         }
                         console.log("z_datap",z_datap);
                         console.log("plotout",plotout);
@@ -260,5 +320,16 @@
                     console.log(aiplot[0]);
                     return aiplot[0];
             };
+            function normTensor(inputTensor, meanTensor, sigmaTensor) {
+                    return inputTensor.sub(meanTensor).div(sigmaTensor);
+            };
+            function invTensor(inputTensor, meanTensor, sigmaTensor) {
+                    return inputTensor.mul(sigmaTensor).add(meanTensor);
+            };
+            function JoinPOC(tensor1, tensor2) {
+                    return tf.stack([tensor1,tensor2],1).reshape([9,2])
+            };
+
+
         </script>
     </HTML>
