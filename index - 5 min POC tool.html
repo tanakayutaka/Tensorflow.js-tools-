@@ -62,11 +62,13 @@
                     &nbsp;<input name="intemp8" placeholder="4" style="left: 10px; position: relative; width: 40px; background-color:#CC9999" type="number" value="4" />  
                     &nbsp;<input name="intemp9" placeholder="5" style="left: 10px; position: relative; width: 40px; background-color:#CC33FF"" type="number" value="5" />  <br /> <br /> 
 
-                    
-                    <input name="cmdCalc" onclick="AI_Start()" style="background-color: lightblue; left: 50px; position: relative; width: 360px;" type="button" value="START TEACHING POC DATA SET" /><br /> 
+                    <input name="cmdCalc" onclick="AI_Start()" style="background-color: lightblue; left: 50px; position: relative; width: 360px;" type="button" value="START TEACHING PoC DATA SET" /><br /> <br /> 
 
+                    SavePC InputData 入力データPC保存 ==> <input name="SaveInput" onclick="SaveInputData()" type="button" style="background-color: rgb(81, 231, 21); left: 350px; position: left; width: 110px; " value="Save Input"/> <br />
+                    LoadPC InputData 入力データPC読込 ==> <input name="LoadInput" type="file" style="left: 350px; position: left; width: 110px; "/> <br />
 
-                </form>
+                  </form>
+
                 <canvas id="myChart" width="100" height="100"></canvas>
             </div>
         </body>
@@ -330,6 +332,65 @@
                     return tf.stack([tensor1,tensor2],1).reshape([9,2])
             };
 
+            function SaveInputData() {
+                var inputstream = { 
+                  myuniti : document.InputData.myuniti.value,
+                  myepoci : document.InputData.myepoci.value,
+                  myactivation1i : document.InputData.myactivation1i.value,
+                  myactivation2i : document.InputData.myactivation2i.value,
+                  myhiddenlayeri : document.InputData.myhiddenlayeri.value,
+                  outemp1:document.InputData.outemp1.value, power1 : document.InputData.power1.value, intemp1:document.InputData.intemp1.value,
+                  outemp2:document.InputData.outemp2.value, power2 : document.InputData.power2.value, intemp2:document.InputData.intemp2.value,
+                  outemp3:document.InputData.outemp3.value, power3 : document.InputData.power3.value, intemp3:document.InputData.intemp3.value,
+                  outemp4:document.InputData.outemp4.value, power4 : document.InputData.power4.value, intemp4:document.InputData.intemp4.value,
+                  outemp5:document.InputData.outemp5.value, power5 : document.InputData.power5.value, intemp5:document.InputData.intemp5.value,
+                  outemp6:document.InputData.outemp6.value, power6 : document.InputData.power6.value, intemp6:document.InputData.intemp6.value,
+                  outemp7:document.InputData.outemp7.value, power7 : document.InputData.power7.value, intemp7:document.InputData.intemp7.value,
+                  outemp8:document.InputData.outemp8.value, power8 : document.InputData.power8.value, intemp8:document.InputData.intemp8.value,
+                  outemp9:document.InputData.outemp9.value, power9 : document.InputData.power9.value, intemp9:document.InputData.intemp9.value
+                };
+                saveJson=JSON.stringify(inputstream);
+                console.log(saveJson);
+                const fileName = "EasyPoC"+GetDate()+".txt";
+                console.log(fileName)
+                const link = document.createElement("a");
+                link.href = "data:text/plain," + encodeURIComponent(saveJson);
+                link.download = fileName;
+                link.click();
+            };    
+
+            document.forms.InputData.LoadInput.addEventListener('change',e => {
+                var result = e.target.files[0];
+                var reader = new FileReader();
+                reader.readAsText(result);
+                reader.addEventListener("load", () => {
+                      loadstream = JSON.parse(reader.result);
+                      console.log(loadstream);
+                      document.InputData.myuniti.value = loadstream.myuniti;
+                      document.InputData.myepoci.value = loadstream.myepoci,
+                      document.InputData.myactivation1i.value = loadstream.myactivation1i,
+                      document.InputData.myactivation2i.value = loadstream.myactivation2i,
+                      document.InputData.myhiddenlayeri.value = loadstream.myhiddenlayeri,
+                      document.InputData.outemp1.value = loadstream.outemp1,  document.InputData.power1.value = loadstream.power1, document.InputData.intemp1.value = loadstream.intemp1,
+                      document.InputData.outemp2.value = loadstream.outemp2,  document.InputData.power2.value = loadstream.power2, document.InputData.intemp2.value = loadstream.intemp2,
+                      document.InputData.outemp3.value = loadstream.outemp3,  document.InputData.power3.value = loadstream.power3, document.InputData.intemp3.value = loadstream.intemp3,
+                      document.InputData.outemp4.value = loadstream.outemp4,  document.InputData.power4.value = loadstream.power4, document.InputData.intemp4.value = loadstream.intemp4,
+                      document.InputData.outemp5.value = loadstream.outemp5,  document.InputData.power5.value = loadstream.power5, document.InputData.intemp5.value = loadstream.intemp5,
+                      document.InputData.outemp6.value = loadstream.outemp6,  document.InputData.power6.value = loadstream.power6, document.InputData.intemp6.value = loadstream.intemp6,
+                      document.InputData.outemp7.value = loadstream.outemp7,  document.InputData.power7.value = loadstream.power7, document.InputData.intemp7.value = loadstream.intemp7,
+                      document.InputData.outemp8.value = loadstream.outemp8,  document.InputData.power8.value = loadstream.power8, document.InputData.intemp8.value = loadstream.intemp8,
+                      document.InputData.outemp9.value = loadstream.outemp9,  document.InputData.power9.value = loadstream.power9, document.InputData.intemp9.value = loadstream.intemp9
+                });
+            })
+
+            function GetDate(){
+                var dt = new Date();
+                var y = dt.getFullYear();
+                var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                var d = ("00" + dt.getDate()).slice(-2);
+                var result = y + "/" + m + "/" + d;
+              return result;
+            }
 
         </script>
     </HTML>
