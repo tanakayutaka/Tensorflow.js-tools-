@@ -1,3 +1,26 @@
+<h2 style="text-align: center;">
+<span style="font-size: x-large;">関数補間</span><span style="font-size: x-large;">マシンとしてのAI実験　</span></h2>
+<h2 style="text-align: center;">
+<span style="font-size: x-large;">AI Experiment&nbsp;as an&nbsp;</span><span style="font-size: x-large;">Function&nbsp;</span><span style="font-size: x-large;">Interpolation&nbsp;</span><span style="font-size: x-large;">Machine</span></h2>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-M-Nw1YvRGVc/XbRRWWhsZfI/AAAAAAAD4mw/caU7aaDSVB80GQCJEw8C4pdWcW89OrqSQCLcBGAsYHQ/s1600/Function.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="591" data-original-width="866" height="272" src="https://1.bp.blogspot.com/-M-Nw1YvRGVc/XbRRWWhsZfI/AAAAAAAD4mw/caU7aaDSVB80GQCJEw8C4pdWcW89OrqSQCLcBGAsYHQ/s400/Function.jpg" width="400" /></a></div>
+<br />
+<br />
+<br />
+<a href="https://randomwalkjapan.blogspot.com/2019/05/ai-reality-of-booming-ai.html">ニューラルネットは補間</a><a href="https://randomwalkjapan.blogspot.com/2019/05/ai-reality-of-booming-ai.html">関数</a><a href="https://randomwalkjapan.blogspot.com/2019/05/ai-reality-of-booming-ai.html">だ</a>と前に述べたが、下の自作ツールで試してみよう！Ealier I mentioned that <a href="https://randomwalkjapan.blogspot.com/2019/05/ai-reality-of-booming-ai.html">neural net is an&nbsp;interpolation&nbsp;function</a><a href="https://randomwalkjapan.blogspot.com/2019/05/ai-reality-of-booming-ai.html">&nbsp;</a>so let's try it out now in below tool I made!<br />
+<br />
+１０個のデータポイントを色々変えると、関数が難しくなるにつれて、ニューロン数、繰り返し回数、中間層の数を増やさないと追従できなくなることが確認できる。If you change 10 data points, as the function becomes complex, you can see that interpolation becomes more difficult unless you increase number of neurons, epochs, layers.<br />
+<br />
+活性化関数は全部で１１ある。There are all 11 activation functions you can try (elu,&nbsp;hardsigmoid,&nbsp;linear,&nbsp;relu,&nbsp;relu6,&nbsp;selu,&nbsp;sigmoid,&nbsp;softmax,&nbsp;softplus,&nbsp;softsign,&nbsp;tanh).<br />
+<span style="background-color: white;"><br /></span>
+枠内の数字を変えてボタンを押すと計算終了後に与えた関数および推定関数を表示する。計算速度は利用中のパソコンの性能によりかなり時間がかかる場合がある。If you change numbers in the boxes then click button, your input function set as well as its approximation are shown at the button graph. Calculation takes longer depending on the spec of your computer.<br />
+<br />
+なお、本プログラムはJavascript版のTensorflowで書かれており、計算はあなたのマシンでローカルに実行している。For information, this program is written in Javascript version of Tensorflow and calculation is done on your machine locally. Program is at&nbsp;<a href="https://github.com/tanakayutaka/Tensorflow.js-tools-/upload/master">https://github.com/tanakayutaka/Tensorflow.js-tools-/upload/master</a>&nbsp;.<br />
+<br />
+<span style="background-color: white; color: #545454; font-family: &quot;arial&quot; , sans-serif;"><br /></span>
+
+
+
 <html>
     <head>
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
@@ -8,14 +31,14 @@
         <div id="main_part">
             Neuralnet Capability Check on Javascript based Tensorflow<br />
             <form name="InputData">
-                <input name="myuniti" placeholder="32" style="left: 350px; position: relative; width: 50px;" type="number" value="32" /> NumOfNeurons/layerニューロン数/層<br />
-                <input name="myepoci" placeholder="220" style="left: 350px; position: relative; width: 50px;" type="number" value="220" /> NumOfEpoch教育繰り返し回数<br />
+                <input name="myuniti" placeholder="16" style="left: 350px; position: relative; width: 50px;" type="number" value="16" /> NumOfNeurons/layerニューロン数/層<br />
+                <input name="myepoci" placeholder="500" style="left: 350px; position: relative; width: 50px;" type="number" value="500" /> NumOfEpoch教育繰り返し回数<br />
                 <input name="myactivation1i" placeholder="tanh" style="left: 350px; position: relative; width: 50px;" type="text" value="tanh" /> InputLyrActivFunc入力層活性化関数<br />
                 <input name="myactivation2i" placeholder="linear" style="left: 350px; position: relative; width: 50px;" type="text" value="linear" /> HidnLyrActivFunc中間層活性化関数<br />
-                <input name="myhiddenlayeri" placeholder="8" style="left: 350px; position: relative; width: 50px;" type="number" value="8" /> NumOfHiddenLayer中間層の数<br />
-                <input name="cmdCalc" onclick="AI_Start()" style="background-color: lightblue; left: 50px; position: relative; width: 360px;" type="button" value="START TEACHING BELOW FUNCTION" /><br /> 
-                <input name="y1" placeholder="-50" style="left: 350px; position: relative; width: 50px;" type="number" value="-50" /> Value of Y when X = 1, X＝1の場合のYの値<br />
-                <input name="y2" placeholder="-30" style="left: 350px; position: relative; width: 50px;" type="number" value="-30" /> Value of Y when X = 2, X＝2の場合のYの値<br />
+                <input name="myhiddenlayeri" placeholder="4" style="left: 350px; position: relative; width: 50px;" type="number" value="4" /> NumOfHiddenLayer中間層の数<br />
+                <input name="cmdCalc" onclick="AI_Start()" style="left: 50px; position: relative; width: 360px;" type="button" value="START TEACHING BELOW FUNCTION" /><br /> 
+                <input name="y1" placeholder="30" style="left: 350px; position: relative; width: 50px;" type="number" value="30" /> Value of Y when X = 1, X＝1の場合のYの値<br />
+                <input name="y2" placeholder="10" style="left: 350px; position: relative; width: 50px;" type="number" value="10" /> Value of Y when X = 2, X＝2の場合のYの値<br />
                 <input name="y3" placeholder="5" style="left: 350px; position: relative; width: 50px;" type="number" value="5" /> Value of Y when X = 3, X＝3の場合のYの値<br />
                 <input name="y4" placeholder="1" style="left: 350px; position: relative; width: 50px;" type="number" value="1" /> Value of Y when X = 4, X＝4の場合のYの値<br />
                 <input name="y5" placeholder="3" style="left: 350px; position: relative; width: 50px;" type="number" value="3" /> Value of Y when X = 5, X＝5の場合のYの値<br />
@@ -36,7 +59,7 @@
             var myactivation2 = document.InputData.myactivation2i.value;
             var myhiddenlayer = document.InputData.myhiddenlayeri.value -0;
             var xs = []; var ys = []; var aiplot = [];
-        
+         
             console.log(myunit);
             console.log(myepoc);
             console.log(myactivation1);
@@ -44,71 +67,68 @@
             console.log(myhiddenlayer);
             
             // Define a model for linear regression.
-            const model = tf.sequential();
-            model.add(tf.layers.dense({units: myunit, activation: myactivation1, inputShape: [1]}));
-            for ( var i = 1 ; i< myhiddenlayer ; i++ ) {
-                model.add(tf.layers.dense({units: myunit, activation: myactivation2}));
-            }
-            model.add(tf.layers.dense({units: 1}));
-            model.compile({loss: 'meanSquaredError', optimizer: 'adam'});
-            // Generate some synthetic data for training.
-            var xs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-            const xst = tf.tensor(xs);
-            xst.print();
-            y1 = document.InputData.y1.value-0
-            y2 = document.InputData.y2.value-0
-            y3 = document.InputData.y3.value-0
-            y4 = document.InputData.y4.value-0
-            y5 = document.InputData.y5.value-0
-            y6 = document.InputData.y6.value-0
-            y7 = document.InputData.y7.value-0
-            y8 = document.InputData.y8.value-0
-            y9 = document.InputData.y9.value-0
-            y10 = document.InputData.y10.value-0
-            var ys = [y1, y2, y3, y4, y5, y6, y7, y8, y9, y10];
-            const yst = tf.tensor(ys);
-            yst.print();
-            var mainelem = document.getElementById('main_part');
-            var canvasid = document.getElementById('myChart');
-            tfvisid = tfvis.show;
-            mainelem.appendChild(canvasid,tfvisid);   
-            tfvis.show.layer({ name: 'Layer', tab: 'Layer' }, model);   
-            const surface = { name: 'show.fitCallbacks', tab: 'Training' };
-            tfvis.show.modelSummary(surface, model);
-            // Train the model using the data.
-            model.fit(xst, yst, {epochs: myepoc, callbacks: tfvis.show.fitCallbacks(surface, ['loss', 'acc'])}).then(() => {
-            //model.fit(xst, yst, {epochs: myepoc}).then(() => {
-                var aiout = model.predict(xst);
-                aiout.print();
-                var aiplot = aiout.dataSync();
-                console.log(xs);
-                console.log(ys);
-                console.log(aiplot);
-                //var bodyid = document.getElementById('main_part');S
-                //var canvasid = document.getElementById('myChart');
-                //bodyid.appendChild(canvasid);
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                            type: 'line',
-                            options: {scales:{yAxes: [{ticks: {beginAtZero: true}}]}},
-                            data: {
-                                labels: xs,
-                                datasets: [
-                                    {
-                                        label: 'Teaching Data',
-                                        data: ys,
-                                        borderWidth: 1,
-                                    },{
-                                        label: 'Learned AI',
-                                        data: aiplot,
-                                        borderWidth: 1,
-                                        borderColor: '#FF0000',
-                                        backgroundColor: 'rgba(1,1,1,0)'
-                                },]
-                            },
-                    });
+                const model = tf.sequential();
+                model.add(tf.layers.dense({units: myunit, activation: myactivation1, inputShape: [1]}));
+                for ( var i = 1 ; i< myhiddenlayer ; i++ ) {
+                    model.add(tf.layers.dense({units: myunit, activation: myactivation2}));
+                }
+                model.add(tf.layers.dense({units: 1}));
+                model.compile({loss: 'meanSquaredError', optimizer: 'adam'});
+                // Generate some synthetic data for training.
+                var xs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                const xst = tf.tensor(xs);
+                xst.print();
+                y1 = document.InputData.y1.value-0
+                y2 = document.InputData.y2.value-0
+                y3 = document.InputData.y3.value-0
+                y4 = document.InputData.y4.value-0
+                y5 = document.InputData.y5.value-0
+                y6 = document.InputData.y6.value-0
+                y7 = document.InputData.y7.value-0
+                y8 = document.InputData.y8.value-0
+                y9 = document.InputData.y9.value-0
+                y10 = document.InputData.y10.value-0
+                var ys = [y1, y2, y3, y4, y5, y6, y7, y8, y9, y10];
+                const yst = tf.tensor(ys);
+                yst.print();
+                // Train the model using the data.
+                const surface = { name: 'show.fitCallbacks', tab: 'Training' };
+                model.fit(xst, yst, {epochs: myepoc, callbacks: tfvis.show.fitCallbacks(surface, ['loss', 'acc'])}).then(() => {
+                //model.fit(xst, yst, {epochs: myepoc}).then(() => {
+                    var mainelem = document.getElementById('main_part');
+                    var canvasid = document.getElementById('myChart');
+                    tfvisid = tfvis.show;
+                    mainelem.appendChild(canvasid,tfvisid);                  
+                    var aiout = model.predict(xst);
+                    aiout.print();
+                    var aiplot = aiout.dataSync();
+                    console.log(xs);
+                    console.log(ys);
+                    console.log(aiplot);
+                    //var bodyid = document.getElementById('main_part');
+                    //var canvasid = document.getElementById('myChart');
+                    //bodyid.appendChild(canvasid);
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                                type: 'line',
+                                options: {scales:{yAxes: [{ticks: {beginAtZero: true}}]}},
+                                data: {
+                                    labels: xs,
+                                    datasets: [
+                                        {
+                                            label: 'Teaching Data',
+                                            data: ys,
+                                            borderWidth: 1,
+                                        },{
+                                            label: 'Learned AI',
+                                            data: aiplot,
+                                            borderWidth: 1,
+                                            borderColor: '#FF0000',
+                                            backgroundColor: 'rgba(1,1,1,0)'
+                                    },]
+                                },
+                        });
                 });
         }
     </script>
-
 </html>
