@@ -1,0 +1,96 @@
+<html>
+  <head>
+      <!-- Load the latest version of TensorFlow.js -->
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
+  </head>
+  <body>
+      <div id="console"></div>
+      <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
+      <div id="Input">
+            <form name="InputData">
+                <input name="nameA" placeholder="Goo" style="left: 350px; position: relative; width: 50px;" type="text" value="Goo"  /> ClassificationName_A分類名A<br />
+                <input name="nameB" placeholder="Choki" style="left: 350px; position: relative; width: 50px;" type="text" value="Choki"  /> ClassificationName_B分類名B<br />
+                <input name="nameC" placeholder="Paa" style="left: 350px; position: relative; width: 50px;" type="text" value="Paa"  /> ClassificationName_C分類名C<br />
+            </form>
+        </div>
+        <button id="class-a">Add A</button>
+        <button id="class-b">Add B</button>
+        <button id="class-c">Add C</button>
+  </body>
+  <script>
+      let net;
+      let uttr_old=9999;
+
+      const webcamElement = document.getElementById('webcam');
+      const classifier = knnClassifier.create();
+
+      async function app() {
+            console.log('Loading mobilenet..');
+
+            // Load the model.
+            net = await mobilenet.load();
+            console.log('Successfully loaded model');
+
+            // Create an object from Tensorflow.js data API which could capture image 
+            // from the web camera as Tensor.
+            const webcam = await tf.data.webcam(webcamElement);
+
+            // Reads an image from the webcam and associates it with a specific class
+            // index.
+            const addExample = async classId => {
+            // Capture an image from the web camera.
+            const img = await webcam.capture();
+
+            // Get the intermediate activation of MobileNet 'conv_preds' and pass that
+            // to the KNN classifier.
+            const activation = net.infer(img, true);
+
+            // Pass the intermediate activation to the classifier.
+            classifier.addExample(activation, classId);
+
+            // Dispose the tensor to release the memory.
+            img.dispose();
+            };
+
+            // When clicking a button, add an example for that class.
+            document.getElementById('class-a').addEventListener('click', () => addExample(0));
+            document.getElementById('class-b').addEventListener('click', () => addExample(1));
+            document.getElementById('class-c').addEventListener('click', () => addExample(2));
+
+            while (true) {
+                  if (classifier.getNumClasses() > 0) {
+                        const img = await webcam.capture();
+
+                        // Get the activation from mobilenet from the webcam.
+                        const activation = net.infer(img, 'conv_preds');
+                        // Get the most likely class and confidence from the classifier module.
+                        const result = await classifier.predictClass(activation);
+
+                        const classes = [
+                            document.InputData.nameA.value,
+                            document.InputData.nameB.value,
+                            document.InputData.nameC.value
+                        ];
+                        document.getElementById('console').innerText = `
+                        prediction: ${classes[result.label]}\n
+                        probability: ${result.confidences[result.label]}
+                        `;
+
+                        var uttr = new SpeechSynthesisUtterance(classes[result.label]);
+                        uttr.lang = 'en-US';
+                        if(uttr.text !== uttr_old.text) { speechSynthesis.cancel();  speechSynthesis.speak(uttr); }
+                        uttr_old = uttr;
+                        console.log(uttr, uttr_old, classes[result.label]);
+
+                        // Dispose the tensor to release the memory.
+                        img.dispose();
+                  }
+
+                  await tf.nextFrame();
+            }
+      }      
+      app();
+  </script>
+</html>
