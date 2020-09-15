@@ -7,12 +7,12 @@
   </head>
   <body>
       <div id="console"></div>
-      <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
+      <video autoplay="" height="224" id="webcam" muted="" playsinline="" width="224"></video>
       <div id="Input">
             <form name="InputData">
-                <input name="nameA" placeholder="Goo" style="left: 350px; position: relative; width: 50px;" type="text" value="Goo"  /> ClassificationName_A分類名A<br />
-                <input name="nameB" placeholder="Choki" style="left: 350px; position: relative; width: 50px;" type="text" value="Choki"  /> ClassificationName_B分類名B<br />
-                <input name="nameC" placeholder="Paa" style="left: 350px; position: relative; width: 50px;" type="text" value="Paa"  /> ClassificationName_C分類名C<br />
+                <input name="nameA" placeholder="Goo" style="left: 350px; position: relative; width: 50px;" type="text" value="Goo" /> ClassificationName_A分類名A<br />
+                <input name="nameB" placeholder="Choki" style="left: 350px; position: relative; width: 50px;" type="text" value="Choki" /> ClassificationName_B分類名B<br />
+                <input name="nameC" placeholder="Paa" style="left: 350px; position: relative; width: 50px;" type="text" value="Paa" /> ClassificationName_C分類名C<br />
             </form>
         </div>
         <button id="class-a">Add A</button>
@@ -90,7 +90,10 @@
 
                   await tf.nextFrame();
             }
-      }      
-      app();
+      } 
+      StartDemo = window.prompt("Click OK to start Image AI Classifier(using CAMERA)","START Image AI Classifier");
+      if( StartDemo == "START Image AI Classifier") {
+      	app();
+      }
   </script>
 </html>
