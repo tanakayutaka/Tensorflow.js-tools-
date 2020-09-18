@@ -6,22 +6,26 @@
       <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
   </head>
   <body>
-      <div id="console"></div>
-      <video autoplay="" height="224" id="webcam" muted="" playsinline="" width="224"></video>
+      <video autoplay="" height="600" id="webcam" muted="" playsinline="" width="600"></video>
       <div id="Input">
             <form name="InputData">
-                <input name="nameA" placeholder="Goo" style="left: 350px; position: relative; width: 50px;" type="text" value="Goo" /> ClassificationName_A分類名A<br />
-                <input name="nameB" placeholder="Choki" style="left: 350px; position: relative; width: 50px;" type="text" value="Choki" /> ClassificationName_B分類名B<br />
-                <input name="nameC" placeholder="Paa" style="left: 350px; position: relative; width: 50px;" type="text" value="Paa" /> ClassificationName_C分類名C<br />
+                <br />
+                <input name="nameA" placeholder="Goo" style="left: 350px; position: absolute; width: 250px;" type="text" value="Goo" /> ClassificationName_A / 分類名A<br />
+                <input name="nameB" placeholder="Choki" style="left: 350px; position: absolute; width: 250px;" type="text" value="Choki" /> ClassificationName_B / 分類名B<br />
+                <input name="nameC" placeholder="Paa" style="left: 350px; position: absolute; width: 250px;" type="text" value="Paa" /> ClassificationName_C / 分類名C<br />
+                <br />
             </form>
         </div>
-        <button id="class-a">Add A</button>
-        <button id="class-b">Add B</button>
-        <button id="class-c">Add C</button>
-  </body>
+        <button id="class-a" style="background-color:rgb(255, 251, 0)  ;border-color:rgb(9, 255, 0);  color:rgb(15, 14, 14); width: 150px" >Add A</button>
+        <button id="class-b" style="background-color:rgb(25, 0, 255)  ;border-color:rgb(9, 255, 0);  color:rgb(255, 255, 255) ; width: 150px" >Add B</button>
+        <button id="class-c" style="background-color:rgb(255, 0, 0)  ;border-color:rgb(9, 255, 0);  color:rgb(255, 255, 255); width: 150px" >Add C</button>
+        <div id="console"></div>
+    </body>
   <script>
       let net;
       let uttr_old=9999;
+    
+      document.getElementById('console').style.fontSize = 120+ '%' ;
 
       const webcamElement = document.getElementById('webcam');
       const classifier = knnClassifier.create();
@@ -74,8 +78,7 @@
                             document.InputData.nameC.value
                         ];
                         document.getElementById('console').innerText = `
-                        prediction: ${classes[result.label]}\n
-                        probability: ${result.confidences[result.label]}
+                        prediction: ${classes[result.label]} / probability: ${result.confidences[result.label]}
                         `;
 
                         var uttr = new SpeechSynthesisUtterance(classes[result.label]);
