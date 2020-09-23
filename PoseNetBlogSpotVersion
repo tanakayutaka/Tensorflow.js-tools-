@@ -11,7 +11,6 @@
 </head>
 
 <body>
-  <h1>PoseNet example using p5.js</h1>
   <p id='status'>Loading model...</p>
   <div id="myContainer558"></div>
 </body>
@@ -33,21 +32,24 @@
     let poses = [];
 
     function setup() {
-      MyCanvas = createCanvas(600, 480);
-      MyCanvas.parent('myContainer558');
-      video = createCapture(VIDEO);
-      video.parent('myContainer558');
-      video.size(width, height);
+      StartDemo = window.prompt("Click OK to start PoseNet DEMO(using CAMERA)","START PoseNet (AI Posture Detector)");
+      if( StartDemo == "START PoseNet (AI Posture Detector)") {
+          MyCanvas = createCanvas(600, 480);
+          MyCanvas.parent('myContainer558');
+          video = createCapture(VIDEO);
+          video.parent('myContainer558');
+          video.size(width, height);
 
-      // Create a new poseNet method with a single detection
-      poseNet = ml5.poseNet(video, modelReady);
-      // This sets up an event that fills the global variable "poses"
-      // with an array every time new poses are detected
-      poseNet.on('pose', function(results) {
-        poses = results;
-      });
-      // Hide the video element, and just show the canvas
-      video.hide();
+          // Create a new poseNet method with a single detection
+          poseNet = ml5.poseNet(video, modelReady);
+          // This sets up an event that fills the global variable "poses"
+          // with an array every time new poses are detected
+          poseNet.on('pose', function(results) {
+            poses = results;
+          });
+          // Hide the video element, and just show the canvas
+          video.hide();}
+      else {return;};    
     }
 
     function modelReady() {
