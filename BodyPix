@@ -31,7 +31,8 @@ function preload(){
 function setup() {
         StartDemo = window.prompt("Click OK to start BodyPix DEMO(using CAMERA)","START BodyPix (AI Body Parts Detector)");
       if( StartDemo == "START BodyPix (AI Body Parts Detector)") {
-    MyCanvas = createCanvas(320, 240);
+    MyCanvas = createCanvas(600, 480);
+    //    MyCanvas = createCanvas(320, 240);
     MyCanvas.parent('myContainer558');
 
     // load up your video
