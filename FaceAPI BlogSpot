@@ -28,7 +28,8 @@ const detection_options = {
 function setup() {
     StartDemo = window.prompt("Click OK to start FaceAPI DEMO(using CAMERA)","START FaceAPI (AI Face Parts Detector)");
       if( StartDemo == "START FaceAPI (AI Face Parts Detector)") {
-            MyCanvas = createCanvas(360, 270);
+            MyCanvas = createCanvas(600, 480);
+            // MyCanvas = createCanvas(360, 270);
             MyCanvas.parent('myContainer558');
             // load up your video
             video = createCapture(VIDEO);
