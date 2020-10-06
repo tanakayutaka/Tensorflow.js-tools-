@@ -1,0 +1,89 @@
+<html>
+    <head></head>
+    <body>
+        <div id="world">Matter.js Physics Engine TEST</div>
+      	<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.js"></script>
+    </body>
+    <script>
+        var Engine = Matter.Engine,
+            Render = Matter.Render,
+            Runner = Matter.Runner,
+            World = Matter.World,
+            Bodies = Matter.Bodies;
+      
+        // create engine
+        var engine = Engine.create(),  
+            world = engine.world;  
+
+        var Composites = Matter.Composites;
+
+        var MouseConstraint = Matter.MouseConstraint,
+            Mouse = Matter.Mouse;    
+
+        // create renderer
+        var render = Render.create({  
+          element: document.getElementById('world'),
+          engine: engine,
+          options: {
+            width: 600,  
+            height: 480,  
+            background: '#FFFFFF',  
+            wireframes: false  
+          }
+        });
+      
+      
+        Render.run(render);  
+
+        // create runner
+        var runner = Runner.create();
+        Runner.run(runner, engine);  
+
+        var bubble1 = Bodies.circle(300, 0, 50, {
+          restitution: 1,
+          render: {
+            fillStyle: '#F08E8F',  
+            strokeStyle: '#007FFF',  
+            lineWidth: 5  
+          }
+        });
+
+        var bubble2 = Bodies.circle(550, 0, 50, {
+          restitution: 2,
+        });
+
+        var earth1 = Bodies.rectangle(400, 350, 800, 30, {
+          isStatic: true
+        });
+
+        // add bodies
+        var stack = Composites.stack(100, 100, 11, 5, 0, 0, function(x, y) {
+          return Bodies.rectangle(x, y, 40, 40);
+        });
+
+        World.add(world, [  
+          bubble1,
+          bubble2,
+          earth1,
+          stack
+        ]);
+
+        // add mouse control
+        var mouse = Mouse.create(render.canvas),
+            mouseConstraint = MouseConstraint.create(engine, {
+              mouse: mouse,
+              constraint: {
+                stiffness: 0.2,
+                render: {
+                  visible: false
+                }
+              }
+            });
+
+        World.add(world, mouseConstraint);
+
+        // keep the mouse in sync with rendering
+        render.mouse = mouse;
+    </script>
+
+</html>
