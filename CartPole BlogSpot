@@ -15,7 +15,7 @@
         MouseConstraint = Matter.MouseConstraint,
         Mouse = Matter.Mouse,
         World = Matter.World,
-        Bodies = Matter.Bodies
+        Bodies = Matter.Bodies,
         Body = Matter.Body;
 
     // create engine
